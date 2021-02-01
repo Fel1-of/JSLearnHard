@@ -1,14 +1,27 @@
-let num = 266219;
+let lang = String(prompt("Выберите и введите язык(en/ru)"));
 
-let s = 1;
 
-while(num){
-    s *= num%10;
-    num = Math.floor(num/10);
-} 
 
-console.log(s);
+//A
+if( lang === "ru"){
+    console.log("Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье.");
+} else{ 
+    console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.");
+}
 
-s = s ** 3;  
+//B
+switch(lang){
+    case "ru":
+        console.log("Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье.");
+        break;
+    case "en":
+        console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.");
+        break;
+}   
 
-console.log(String(s).slice(0,2));
+//C 
+let ar = [];
+ar['ru'] = ["Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье."];
+ar['en'] = ["Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday."];
+
+console.log(ar[lang]);
