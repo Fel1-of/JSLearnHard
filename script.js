@@ -1,32 +1,17 @@
-let lang = String(prompt("Выберите и введите язык(en/ru)"));
+'use strict';
 
-//C 
-let ar = [];
-ar['ru'] = ["Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье."];
-ar['en'] = ["Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday."];
+let str = 0;
+function IsString(str){
+    if(typeof(str)!=="string"){
+        return `${str} не является строкой`;
+    }
 
-console.log(ar[lang]);
+    if(str.length>30){
+        return str.slice(0,30)+'...';
+    } else {
+        return str;
+    }
 
-//A
-if( lang === "ru"){
-    console.log(ar['ru']);
-} else{ 
-    console.log(ar['en']);
 }
 
-//B
-switch(lang){
-    case "ru":
-        console.log(ar['ru']);
-        break;
-    case "en":
-        console.log(ar['en']);
-        break;
-}   
-
-//№2
-
-let namePerson = prompt("Введите имя");
-
-namePerson === "Артём" ? console.log("Директор") : 
-namePerson === "Максим" ? console.log("преподаватель") : console.log("студент");
+console.log(IsString(str));
