@@ -1,19 +1,25 @@
 'use strict';
+//№1
+let arr=prompt("Введите 7 многозначных чисел через ', ':").trim().split(', ');
 
-let str = prompt("Введите строку:");
-function IsString(str){
-    if(typeof(str)!=="string"){
-        return `${str} не является строкой`;
+for(let i=0;i<7;i++){
+    if(arr[i][0]==='2' || arr[i][0]==='4'){
+        console.log(arr[i]);
     }
-
-    str = str.trim();
-
-    if(str.length>30){
-        return str.slice(0,30)+'...';
-    } else {
-        return str;
-    }
-
 }
-
-console.log(IsString(str));
+//№2
+console.log('Простые числа:')
+for(let i=2;i<100;i++){
+    let sum=0;
+    let b=0;
+    for(let j=1;j<=Math.sqrt(i);j++){
+        if (i%j===0){
+            sum+=1;
+            b=j;            
+        }
+    }
+    if(sum===1){
+        console.log(i, `Делители этого числа: 1 и ${b}`);
+    }
+    
+}
