@@ -11,15 +11,13 @@ for(let i=0;i<7;i++){
 console.log('Простые числа:')
 for(let i=2;i<100;i++){
     let sum=0;
-    let b=0;
     for(let j=1;j<=Math.sqrt(i);j++){
         if (i%j===0){
-            sum+=1;
-            b=j;            
+            sum+=1;           
         }
     }
     if(sum===1){
-        console.log(i, `Делители этого числа: 1 и ${b}`);
+        console.log(i, `Делители этого числа: 1 и ${i}`);
     }
     
 }
