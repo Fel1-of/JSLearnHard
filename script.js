@@ -40,10 +40,6 @@ function game(){
         }
     }
     MoreLess();
-
-
-
-
 }
 
 game();
