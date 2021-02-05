@@ -1,13 +1,13 @@
 'use strict';
-let week = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+let week = [ "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 let date = new Date();
 
-for (let i of week) {
-    if (i === "Воскресенье" || i === "Суббота") {
-        document.write(i.italics() + "<br \/>");
+for (let i in week) {
+    if (week[i] === "Воскресенье" || week[i] === "Суббота") {
+        document.write(week[i].italics() + "<br \/>");
     } else if (+i === +date.getDay()) {
-        document.write(i.bold() + "<br \/>");
+        document.write(week[i].bold() + "<br \/>");
     } else{
-        document.write(i + "<br \/>");
+        document.write(week[i] + "<br \/>");
     }
 }
