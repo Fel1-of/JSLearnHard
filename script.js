@@ -1,23 +1,13 @@
 'use strict';
-//№1
-let arr=prompt("Введите 7 многозначных чисел через ', ':").trim().split(', ');
+let week = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+let date = new Date();
 
-for(let i=0;i<7;i++){
-    if(arr[i][0]==='2' || arr[i][0]==='4'){
-        console.log(arr[i]);
+for (let i of week) {
+    if (i === "Воскресенье" || i === "Суббота") {
+        document.write(i.italics() + "<br \/>");
+    } else if (+i === +date.getDay()) {
+        document.write(i.bold() + "<br \/>");
+    } else{
+        document.write(i + "<br \/>");
     }
-}
-//№2
-console.log('Простые числа:')
-for(let i=2;i<100;i++){
-    let sum=0;
-    for(let j=1;j<=Math.sqrt(i);j++){
-        if (i%j===0){
-            sum+=1;           
-        }
-    }
-    if(sum===1){
-        console.log(i, `Делители этого числа: 1 и ${i}`);
-    }
-    
 }
