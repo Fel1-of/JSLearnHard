@@ -7,6 +7,15 @@ function formatDate(time, titles) {
     return titles[(time % 100 > 4 && time % 100 < 20) ? 2 : cases[(time % 10 < 5) ? time % 10 : 5]];
 }
 
+function correctDate(date) {
+    if (date.length<2) {
+        return '0' + date;
+    } else {
+        return date;
+    }
+
+}
+
 let weekDays = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 let yearMonth = ['Января', 'Февраля', "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа",
     "Сентября", "Октября", "Ноября", "Декабря"
@@ -34,9 +43,19 @@ function releaseDate() {
     let minutesSpelling = formatDate(minutes, minutesSpell);
     let secondsSpelling = formatDate(seconds, secondsSpell);
 
+    console.log(myDate);
     let parseTime = myDate.toLocaleString().split(', ');
-    let date = parseTime[0].split('/').join('.');
-    let time = parseTime[1];
+    let date = parseTime[0].split('.');
+
+    for (let i = 0; i < date.length; i++) {
+        date[i]=correctDate(date[i]);
+    }
+    date = date.join('.');
+    let time = parseTime[1].split(':');
+    for (let i = 0; i < time.length; i++) {
+        time[i]=correctDate(time[i]);
+    }
+    time = time.join(':');
     let fullDate = (date + ' - ' + time);
 
     document.getElementById('time1').textContent = `Сегодня ${weekDay}, ${day} ${month} ${year} года, ${hours} ${hoursSpelling} ${minutes} ${minutesSpelling} ${seconds} ${secondsSpelling}`;
