@@ -1,65 +1,14 @@
-'use strict';
+'use strict'; 
+let colorItem = document.querySelector('.color-text'),
+    colorBtn = document.querySelector('button');
 
-function formatDate(time, titles) {
-
-    const cases = [2, 0, 1, 1, 1, 2];
-
-    return titles[(time % 100 > 4 && time % 100 < 20) ? 2 : cases[(time % 10 < 5) ? time % 10 : 5]];
+function getRandomColor () {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
-function correctDate(date) {
-    if (date.length<2) {
-        return '0' + date;
-    } else {
-        return date;
-    }
-
-}
-
-let weekDays = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-let yearMonth = ['Января', 'Февраля', "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа",
-    "Сентября", "Октября", "Ноября", "Декабря"
-];
-
-const firstTime = document.querySelector('.first_time');
-const secondTime = document.querySelector('.second_time');
-
-function releaseDate() {
-    let myDate = new Date();
-
-    const year = myDate.getFullYear();
-    const month = yearMonth[myDate.getMonth()];
-    const weekDay = weekDays[myDate.getDay()];
-    const day = myDate.getDate();
-    const hours = myDate.getHours();
-    const minutes = myDate.getMinutes();
-    const seconds = myDate.getSeconds();
-
-    let hoursSpell = ['час', 'часа', 'часов'];
-    let minutesSpell = ['минута', 'минуты', 'минут'];
-    let secondsSpell = ['секунда', 'секунды', 'секунд'];
-
-    let hoursSpelling = formatDate(hours, hoursSpell);
-    let minutesSpelling = formatDate(minutes, minutesSpell);
-    let secondsSpelling = formatDate(seconds, secondsSpell);
-
-    console.log(myDate);
-    let parseTime = myDate.toLocaleString().split(', ');
-    let date = parseTime[0].split('.');
-
-    for (let i = 0; i < date.length; i++) {
-        date[i]=correctDate(date[i]);
-    }
-    date = date.join('.');
-    let time = parseTime[1].split(':');
-    for (let i = 0; i < time.length; i++) {
-        time[i]=correctDate(time[i]);
-    }
-    time = time.join(':');
-    let fullDate = (date + ' - ' + time);
-
-    document.getElementById('time1').textContent = `Сегодня ${weekDay}, ${day} ${month} ${year} года, ${hours} ${hoursSpelling} ${minutes} ${minutesSpelling} ${seconds} ${secondsSpelling}`;
-    document.getElementById('time2').textContent = fullDate;
-};
-
-setInterval(releaseDate, 1000);
+colorBtn.addEventListener('click', () => {
+    let newColor = getRandomColor();
+    newColor = '#000000' ? document.body.style.backgroundImage = 'url(img/img.jpg)' : document.body.style.backgroundColor = newColor;
+    colorBtn.style.color = newColor;
+    colorItem.textContent = newColor;
+});
