@@ -8,7 +8,7 @@ function getRandomColor () {
 
 colorBtn.addEventListener('click', () => {
     let newColor = getRandomColor();
-    newColor = '#000000' ? document.body.style.backgroundImage = 'url(img/img.jpg)' : document.body.style.backgroundColor = newColor;
+    newColor === '#000000' ? document.body.style.backgroundImage = 'url(img/img.jpg)' : document.body.style.backgroundColor = newColor;
     colorBtn.style.color = newColor;
     colorItem.textContent = newColor;
 });
