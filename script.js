@@ -1,65 +1,51 @@
-'use strict'; 
-//base
-let body = document.querySelector('body');
+'use strict';
 
+const start = document.querySelector('.start');
+const reset = document.querySelector('.reset');
+const squad = document.querySelector('.div-animate');
 
-function DomElement (selector, height, width, bg, fontSize) {
-    this.selector = selector;
-    this.height = height;
-    this.width = width;
-    this.bg = bg;
-    this.fontSize = fontSize;
-    this.element = '';
-}
-let cube;
-DomElement.prototype.createElement = function () {
-    if (this.selector.startsWith('.')) {
-        this.element = document.createElement('div');
-        this.element.textContent = "Тут должен быть текст";
-        this.element.classList.add(`${this.selector.slice(1)}`);
-        this.element.style.cssText = `height: ${this.height};
-                                    width: ${this.width};
-                                    background: ${this.bg};
-                                    font-size: ${this.fontSize};
-                                    position: absolute`;
-                                    
-        body.append(this.element);
-        cube = document.querySelector(`.${this.selector.slice(1)}`);
+let countAnimate = 0;
+let countAnimateTwo = 0;
+let anim = true;
 
-    } else if (this.selector.startsWith('#')) {
-        this.element = document.createElement('p');
-        this.element.textContent = "Тут должен быть текст";
-        this.element.setAttribute('id', `${this.selector.slice(1)}`);
-        this.element.style.cssText = `height: ${this.height};
-                                    width: ${this.width};
-                                    background: ${this.bg};
-                                    font-size: ${this.fontSize};
-                                    position: absolute`;
-        body.append(this.element);
-        cube = document.querySelector(`#${this.selector.slice(1)}`);
+let interval;
+let animate = function(a) {
+    if (a === '') {
+        countAnimate = 0;
+        countAnimateTwo = 0;
+        anim = true;
+        animate(' ');
+        return;
+    } else if (a !== ' ') {
+        interval = requestAnimationFrame(animate);
+        countAnimate++;
+        countAnimateTwo++;
     }
+
+    if(countAnimate < 1000) {
+        squad.style.transform = `translateX(${countAnimate}px)
+        rotate(${countAnimate}deg)
+        translateY(${countAnimateTwo * 0.2}px)`;
+    } else if (countAnimate >= 1000 && countAnimate < 2000) {
+        squad.style.transform = `translateX(${2000 - countAnimate}px)
+            rotate(${2000 - countAnimate}deg) translateY(30px)`;
+    } else {
+        cancelAnimationFrame(interval);
+    }     
 };
 
-let domElement = new DomElement('.block', '100px', '100px', 'red', '10px');
+start.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (anim) {
+        interval = requestAnimationFrame(animate);
+        anim = false;
+    } else {
+        anim = true;
+        cancelAnimationFrame(interval);
+    }
+});
 
-document.addEventListener('DOMContentLoaded', function () {
-    domElement.createElement();
-    const element = document.querySelector(domElement.selector);
-    let X = 0;
-    let Y = 0;
-    document.addEventListener('keydown', function (key) {
-        if (key.code === 'ArrowRight') {
-            X += 10;
-            element.style.left = `${X}px`;
-        } else if (key.code === 'ArrowDown') {
-            Y += 10;
-            element.style.top = `${Y}px`;
-        } else if (key.code === 'ArrowLeft') {
-            X -= 10;
-            element.style.left = `${X}px`;
-        } else if (key.code === 'ArrowUp') {
-            Y -= 10;
-            element.style.top = `${Y}px`;
-        }
-    });
+reset.addEventListener('click', function() {
+    cancelAnimationFrame(interval);
+    animate('');
 });
