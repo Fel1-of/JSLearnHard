@@ -1,51 +1,39 @@
-'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
 
-const start = document.querySelector('.start');
-const reset = document.querySelector('.reset');
-const squad = document.querySelector('.div-animate');
+    const select = document.getElementById('cars'),
+        output = document.getElementById('output');
 
-let countAnimate = 0;
-let countAnimateTwo = 0;
-let anim = true;
+    select.addEventListener('change', () => {
+        const getData = () =>{
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.open('GET', './cars.json');
+                request.setRequestHeader('Content-type', 'application/json');
+                request.send();
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState === 4 && request.status === 200) {
+                        resolve(request);
+                    } else {
+                        reject();
+                    }
+                });
+        });
+    };
+    getData()
+    .then((request)=>{
+        const data = JSON.parse(request.responseText);
+        data.cars.forEach(item => {
+            if (item.brand === select.value) {
+                const {brand, model, price} = item;
+                output.innerHTML = `Тачка ${brand} ${model} <br>
+                Цена: ${price}$`;
+            }
+        });
+    })
+    .catch(()=>{
+        output.innerHTML = 'Произошла ошибка';
+    });
+    });
 
-let interval;
-let animate = function(a) {
-    if (a === '') {
-        countAnimate = 0;
-        countAnimateTwo = 0;
-        anim = true;
-        animate(' ');
-        return;
-    } else if (a !== ' ') {
-        interval = requestAnimationFrame(animate);
-        countAnimate++;
-        countAnimateTwo++;
-    }
-
-    if(countAnimate < 1000) {
-        squad.style.transform = `translateX(${countAnimate}px)
-        rotate(${countAnimate}deg)
-        translateY(${countAnimateTwo * 0.2}px)`;
-    } else if (countAnimate >= 1000 && countAnimate < 2000) {
-        squad.style.transform = `translateX(${2000 - countAnimate}px)
-            rotate(${2000 - countAnimate}deg) translateY(30px)`;
-    } else {
-        cancelAnimationFrame(interval);
-    }     
-};
-
-start.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (anim) {
-        interval = requestAnimationFrame(animate);
-        anim = false;
-    } else {
-        anim = true;
-        cancelAnimationFrame(interval);
-    }
-});
-
-reset.addEventListener('click', function() {
-    cancelAnimationFrame(interval);
-    animate('');
 });
