@@ -12,10 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 request.setRequestHeader('Content-type', 'application/json');
                 request.send();
                 request.addEventListener('readystatechange', () => {
-                    if (request.readyState === 4 && request.status === 200) {
-                        resolve(request);
+                    if (request.readyState !== 4) {
+                        return;
+                      }
+                    if (request.status === 200) {
+                    resolve(request);            
                     } else {
-                        reject();
+                    reject(request.Status);  
                     }
                 });
         });
@@ -31,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     })
-    .catch(()=>{
+    .catch((stat)=>{
+        console.log(stat);
         output.innerHTML = 'Произошла ошибка';
     });
     });
